@@ -15,7 +15,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width
+    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromARGB(247, 247, 247, 247),
@@ -31,7 +31,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     children: [
                       Image.asset(
                         "assets/images/logo2.jpeg",
-                        height: height * .2,
+                        height: height * .3,
                         width: width * 0.4,
                       ),
                       SizedBox(height: 4),

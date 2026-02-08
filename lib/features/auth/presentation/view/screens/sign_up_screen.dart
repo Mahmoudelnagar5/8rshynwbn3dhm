@@ -18,6 +18,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String password = '';
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: const Color.fromARGB(247, 247, 247, 247),
       body: Padding(
@@ -49,8 +51,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Image.asset(
                           "assets/images/logo2.jpeg",
-                          height: 150,
-                          width: 200,
+                          height: height * .3,
+                          width: width * 0.4,
                         ),
                         SizedBox(height: 4),
                         Text(
