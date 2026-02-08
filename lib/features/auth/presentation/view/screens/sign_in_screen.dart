@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 child: Text(
-                  "Log in",
+                  "Sign in",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
@@ -75,7 +75,7 @@ class SignInScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                  MaterialPageRoute(builder: (context) => SignUpScreen()),
                 );
               },
               child: Text(
