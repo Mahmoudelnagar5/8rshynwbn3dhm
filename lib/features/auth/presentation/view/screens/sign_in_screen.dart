@@ -35,6 +35,9 @@ class SignInScreen extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: "Email",
                 prefixIcon: Icon(Icons.email),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
               ),
             ),
           ],
