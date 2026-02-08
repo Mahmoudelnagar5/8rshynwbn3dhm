@@ -1,5 +1,6 @@
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,8 +31,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: Colors.green,
-                  content: Text("Account created successfully"),
+                  content: Center(child: Text("Account created successfully")),
                 ),
+              );
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+                (route) => false,
               );
             } else if (state is FailureAuthState) {
               ScaffoldMessenger.of(context).showSnackBar(
