@@ -1,3 +1,4 @@
+import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
 import 'package:expense_tracker/features/home/data/models/transction_item.dart';
 import 'package:expense_tracker/features/home/data/repo/transactions_repo.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const HomeScreen(),
+        home: const SignInScreen(),
       ),
     );
   }
