@@ -9,20 +9,21 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-  GlobalKey<FormState> formkey = GlobalKey();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  bool isPear = true;
+  bool obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(247, 247, 247, 247),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Form(
-          key: formkey,
+          key: formKey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -34,86 +35,99 @@ class _SignInScreenState extends State<SignInScreen> {
                         height: height * .3,
                         width: width * 0.4,
                       ),
-                      SizedBox(height: 4),
-                      Text(
+                      const SizedBox(height: 4),
+                      const Text(
                         "قرشين وبنعدهم",
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 5, 5, 5),
+                          color: Color.fromARGB(255, 5, 5, 5),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 40),
-                TextField(
+                const SizedBox(height: 40),
+                TextFormField(
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return "Email is required";
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     hintText: "Email",
-                    prefixIcon: Icon(Icons.email),
+                    prefixIcon: const Icon(Icons.email),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 TextFormField(
-                  obscureText: isPear,
+                  obscureText: obscurePassword,
                   validator: (val) {
-                    if (val!.isEmpty) {
-                      return "This feild is required";
+                    if (val == null || val.isEmpty) {
+                      return "This field is required";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
                     hintText: "Password",
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       onPressed: () {
-                        isPear = !isPear;
-                        setState(() {});
+                        setState(() {
+                          obscurePassword = !obscurePassword;
+                        });
                       },
                       icon: Icon(
-                        isPear ? Icons.visibility : Icons.visibility_off,
+                        obscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                     ),
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 ),
-                SizedBox(height: 24),
+                const SizedBox(height: 24),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 34, 9, 255),
+                      backgroundColor: const Color.fromARGB(255, 34, 9, 255),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     onPressed: () {
-                      if (formkey.currentState!.validate()) {}
+                      if (formKey.currentState!.validate()) {
+                        print("Success!");
+                      }
                     },
-                    child: Text(
+                    child: const Text(
                       "Log in",
                       style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
                   ),
                 ),
-                SizedBox(height: 12),
+                const SizedBox(height: 12),
                 TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                      MaterialPageRoute(
+                        builder: (context) => const SignUpScreen(),
+                      ),
                     );
                   },
-                  child: Text(
-                    "Don't have an account?  Sign Up",
+                  child: const Text(
+                    "Don't have an account? Sign Up",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 45, 0, 248),
+                      color: Color.fromARGB(255, 45, 0, 248),
                       fontSize: 18,
                     ),
                   ),
