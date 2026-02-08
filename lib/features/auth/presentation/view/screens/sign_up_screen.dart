@@ -79,7 +79,7 @@ class SignUpScreen extends StatelessWidget {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color.fromARGB(255, 146, 7, 158),
+                    backgroundColor: Color.fromARGB(255, 33, 9, 255),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -95,7 +95,7 @@ class SignUpScreen extends StatelessWidget {
               TextButton(
                 onPressed: () {},
                 child: Text(
-                  "Create Account",
+                  "Already have an account?  Sign in",
                   style: TextStyle(
                     color: const Color.fromARGB(255, 45, 0, 248),
                     fontSize: 18,
