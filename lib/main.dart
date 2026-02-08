@@ -1,5 +1,6 @@
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
 import 'package:expense_tracker/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SignInScreen(),
+        home: const HomeScreen(), // Changed to show HomeScreen
       ),
     );
   }
