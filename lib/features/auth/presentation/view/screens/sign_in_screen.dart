@@ -5,14 +5,24 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Column(children: [Image.asset("assets/images/logo.jpeg")]),
+            Center(
+              child: Column(
+                children: [
+                  Image.asset(
+                    "assets/images/logo.jpeg",
+                    height: 300,
+                    width: 200,
+                  ),
+                  SizedBox(height: 10),
+                  Text("قرشين وبنعدهم")و
+                ],
+              ),
+            ),
           ],
         ),
       ),
