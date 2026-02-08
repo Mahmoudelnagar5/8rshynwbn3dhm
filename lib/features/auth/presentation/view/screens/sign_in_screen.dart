@@ -31,6 +31,12 @@ class SignInScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 40),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Email",
+                prefixIcon: Icon(Icons.email),
+              ),
+            ),
           ],
         ),
       ),
