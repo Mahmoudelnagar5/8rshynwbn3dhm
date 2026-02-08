@@ -3,7 +3,6 @@ import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit
 import 'package:expense_tracker/features/home/data/models/transction_item.dart';
 import 'package:expense_tracker/features/home/data/repo/transactions_repo.dart';
 import 'package:expense_tracker/features/home/presentation/view_model/transactions_cubit.dart';
-import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
 import 'package:expense_tracker/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
