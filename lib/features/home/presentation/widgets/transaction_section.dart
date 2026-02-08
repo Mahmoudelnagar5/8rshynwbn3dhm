@@ -7,6 +7,8 @@ class TransactionSection extends StatelessWidget {
   final int count;
   final bool isIncome;
   final List<TransactionItem> transactions;
+  final void Function(TransactionItem)? onEdit;
+  final void Function(TransactionItem)? onDelete;
 
   const TransactionSection({
     super.key,
@@ -14,6 +16,8 @@ class TransactionSection extends StatelessWidget {
     required this.count,
     required this.isIncome,
     required this.transactions,
+    this.onEdit,
+    this.onDelete,
   });
 
   @override
@@ -48,11 +52,13 @@ class TransactionSection extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 12),
             child: TransactionCard(
               title: transaction.title,
-              date: transaction.date,
+              date: transaction.date.toString().split(
+                ' ',
+              )[0], // Format date as YYYY-MM-DD
               amount: transaction.amount,
               isIncome: isIncome,
-              onEdit: transaction.onEdit,
-              onDelete: transaction.onDelete,
+              onEdit: onEdit != null ? () => onEdit!(transaction) : null,
+              onDelete: onDelete != null ? () => onDelete!(transaction) : null,
             ),
           ),
         ),

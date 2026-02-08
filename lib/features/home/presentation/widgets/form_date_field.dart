@@ -15,6 +15,7 @@ class FormDateField extends StatelessWidget {
     final picked = await showDatePicker(
       context: context,
       initialDate: selectedDate ?? now,
+
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
@@ -34,10 +35,7 @@ class FormDateField extends StatelessWidget {
       children: [
         const Text(
           'Date',
-          style: TextStyle(
-            color: Color(0xFF0A0A0A),
-            fontSize: 14,
-          ),
+          style: TextStyle(color: Color(0xFF0A0A0A), fontSize: 14),
         ),
         const SizedBox(height: 8),
         GestureDetector(
@@ -55,10 +53,7 @@ class FormDateField extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 displayText,
-                style: const TextStyle(
-                  color: Color(0xFF0A0A0A),
-                  fontSize: 16,
-                ),
+                style: const TextStyle(color: Color(0xFF0A0A0A), fontSize: 16),
               ),
             ),
           ),

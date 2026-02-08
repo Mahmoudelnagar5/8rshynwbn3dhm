@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../data/models/transction_item.dart';
+import '../view_model/transactions_cubit.dart';
 import '../widgets/form_header.dart';
 import '../widgets/form_text_field.dart';
 import '../widgets/transaction_type_selector.dart';
@@ -8,12 +9,12 @@ import '../widgets/form_action_buttons.dart';
 
 class EditTransactionSheet extends StatefulWidget {
   final TransactionItem transaction;
-  final bool isIncome;
+  final TransactionsCubit cubit;
 
   const EditTransactionSheet({
     super.key,
     required this.transaction,
-    required this.isIncome,
+    required this.cubit,
   });
 
   @override
@@ -33,18 +34,11 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
     _amountController = TextEditingController(
       text: widget.transaction.amount.toStringAsFixed(0),
     );
-    _selectedType = widget.isIncome
+    _selectedType = widget.transaction.isIncome
         ? TransactionType.income
         : TransactionType.expense;
-    // Parse the date string
-    final parts = widget.transaction.date.split('-');
-    if (parts.length == 3) {
-      _selectedDate = DateTime(
-        int.parse(parts[0]),
-        int.parse(parts[1]),
-        int.parse(parts[2]),
-      );
-    }
+    final parts = widget.transaction.date;
+    _selectedDate = DateTime(parts.year, parts.month, parts.day);
   }
 
   @override
@@ -112,12 +106,16 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
               final amount =
                   double.tryParse(_amountController.text.trim()) ?? 0;
               if (name.isNotEmpty && amount > 0 && _selectedDate != null) {
-                Navigator.of(context).pop({
-                  'name': name,
-                  'amount': amount,
-                  'type': _selectedType,
-                  'date': _selectedDate,
-                });
+                final date = _selectedDate!;
+                final updatedItem = TransactionItem(
+                  id: widget.transaction.id,
+                  title: name,
+                  date: date,
+                  amount: amount,
+                  isIncome: _selectedType == TransactionType.income,
+                );
+                widget.cubit.updateTransaction(updatedItem);
+                Navigator.of(context).pop();
               }
             },
           ),
