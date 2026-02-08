@@ -1,3 +1,4 @@
+import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -93,7 +94,12 @@ class SignUpScreen extends StatelessWidget {
               ),
               SizedBox(height: 12),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignInScreen()),
+                  );
+                },
                 child: Text(
                   "Already have an account?  Sign in",
                   style: TextStyle(
