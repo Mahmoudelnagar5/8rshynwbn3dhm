@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -11,7 +13,10 @@ class SignInScreen extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [Column()],
+          children: [Column(
+            children: [Image.asset(log(x)],
+
+          )],
         ),
       ),
     );
