@@ -65,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                 ),
                 onPressed: () {},
                 child: Text(
-                  "Sign in",
+                  "Log in",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ),
