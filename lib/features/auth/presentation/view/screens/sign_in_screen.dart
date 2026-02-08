@@ -26,7 +26,7 @@ class SignInScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 146, 7, 158),
+                      color: const Color.fromARGB(255, 5, 5, 5),
                     ),
                   ),
                 ],
