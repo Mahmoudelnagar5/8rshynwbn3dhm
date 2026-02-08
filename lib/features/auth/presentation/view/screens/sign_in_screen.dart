@@ -7,6 +7,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Column(
@@ -25,7 +26,7 @@ class SignInScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: const Color.fromARGB(255, 146, 7, 158),
+                      color: const Color.fromARGB(255, 5, 5, 5),
                     ),
                   ),
                 ],
@@ -58,7 +59,7 @@ class SignInScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 146, 7, 158),
+                  backgroundColor: Color.fromARGB(255, 34, 9, 255),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -79,7 +80,7 @@ class SignInScreen extends StatelessWidget {
                 );
               },
               child: Text(
-                "Create Account",
+                "Don't have an account?  Sign Up",
                 style: TextStyle(
                   color: const Color.fromARGB(255, 45, 0, 248),
                   fontSize: 18,
