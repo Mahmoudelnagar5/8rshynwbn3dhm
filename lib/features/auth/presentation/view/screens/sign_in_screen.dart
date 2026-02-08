@@ -15,11 +15,18 @@ class SignInScreen extends StatelessWidget {
                 children: [
                   Image.asset(
                     "assets/images/logo.jpeg",
-                    height: 300,
+                    height: 150,
                     width: 200,
                   ),
-                  SizedBox(height: 10),
-                  Text("قرشين وبنعدهم")و
+                  SizedBox(height: 4),
+                  Text(
+                    "قرشين وبنعدهم",
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: const Color.fromARGB(255, 146, 7, 158),
+                    ),
+                  ),
                 ],
               ),
             ),
