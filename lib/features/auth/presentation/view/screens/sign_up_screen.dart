@@ -19,6 +19,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(247, 247, 247, 247),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: BlocConsumer<AuthCubit, AuthState>(
