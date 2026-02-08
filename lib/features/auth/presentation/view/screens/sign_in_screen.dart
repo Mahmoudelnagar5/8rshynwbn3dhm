@@ -40,6 +40,46 @@ class SignInScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 16),
+            TextField(
+              decoration: InputDecoration(
+                hintText: "Password",
+                prefixIcon: Icon(Icons.lock),
+                suffixIcon: Icon(Icons.visibility_off),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+            SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 146, 7, 158),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {},
+                child: Text(
+                  "Log in",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ),
+            ),
+            SizedBox(height: 12),
+            TextButton(
+              onPressed: () {},
+              child: Text(
+                "Create Account",
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 45, 0, 248),
+                  fontSize: 18,
+                ),
+              ),
+            ),
           ],
         ),
       ),
