@@ -47,7 +47,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: Column(
                       children: [
                         Image.asset(
-                          "assets/images/logo.jpeg",
+                          "assets/images/logo2.jpeg",
                           height: 150,
                           width: 200,
                         ),

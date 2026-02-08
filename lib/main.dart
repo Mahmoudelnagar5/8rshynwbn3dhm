@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       create: (context) => AuthCubit(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SignInScreen(),
+        home: SignInScreen(),
       ),
     );
   }
