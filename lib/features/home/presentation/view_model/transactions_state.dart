@@ -36,3 +36,9 @@ class TransactionsError extends TransactionsState {
 
   TransactionsError(this.message);
 }
+
+class TransactionAdded extends TransactionsState {}
+
+class TransactionUpdated extends TransactionsState {}
+
+class TransactionDeleted extends TransactionsState {}

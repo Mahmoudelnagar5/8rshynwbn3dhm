@@ -35,6 +35,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<void> addTransaction(TransactionItem item) async {
     try {
       await _repo.addTransaction(item);
+      emit(TransactionAdded());
       final transactions = await _repo.getAllTransactions();
       final currentFilter = state is TransactionsLoaded
           ? (state as TransactionsLoaded).selectedFilter
@@ -51,6 +52,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<void> updateTransaction(TransactionItem item) async {
     try {
       await _repo.updateTransaction(item);
+      emit(TransactionUpdated());
       final transactions = await _repo.getAllTransactions();
       final currentFilter = state is TransactionsLoaded
           ? (state as TransactionsLoaded).selectedFilter
@@ -67,6 +69,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<void> deleteTransaction(String id) async {
     try {
       await _repo.deleteTransaction(id);
+      emit(TransactionDeleted());
       final transactions = await _repo.getAllTransactions();
       final currentFilter = state is TransactionsLoaded
           ? (state as TransactionsLoaded).selectedFilter

@@ -44,15 +44,19 @@ class AppHeader extends StatelessWidget {
               ),
             ],
           ),
-          // Notification Button
+          // Logout Button
           Container(
             width: 36,
             height: 36,
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(100)),
             child: IconButton(
-              icon: const Icon(Icons.notifications_outlined, size: 16),
+              icon: const Icon(
+                Icons.logout,
+                size: 20,
+                color: Color(0xFFE7000B),
+              ),
               onPressed: () {
-                // Handle notification
+                // Handle logout
               },
               padding: EdgeInsets.zero,
             ),

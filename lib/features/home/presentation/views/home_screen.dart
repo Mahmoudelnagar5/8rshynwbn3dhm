@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../data/models/transction_item.dart';
+import '../../../../core/functions/show_add_sheet.dart';
+import '../../../../core/functions/show_edit_sheet.dart';
+import '../../../../core/functions/snackbar_utils.dart';
 import '../view_model/transactions_cubit.dart';
 import '../view_model/transactions_state.dart';
 import '../widgets/app_header.dart';
@@ -8,48 +10,24 @@ import '../widgets/balance_card.dart';
 import '../widgets/filter_buttons.dart';
 import '../widgets/summary_cards.dart';
 import '../widgets/transaction_section.dart';
-import 'add_transaction_sheet.dart';
-import 'edit_transaction_sheet.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  void _showAddSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: AddTransactionSheet(cubit: context.read<TransactionsCubit>()),
-      ),
-    );
-  }
-
-  void _showEditSheet(BuildContext context, TransactionItem transaction) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: EditTransactionSheet(
-          transaction: transaction,
-          cubit: context.read<TransactionsCubit>(),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: BlocBuilder<TransactionsCubit, TransactionsState>(
+      body: BlocConsumer<TransactionsCubit, TransactionsState>(
+        listener: (context, state) {
+          if (state is TransactionAdded) {
+            showSuccessSnackBar(context, 'Transaction added successfully');
+          } else if (state is TransactionUpdated) {
+            showInfoSnackBar(context, 'Transaction updated successfully');
+          } else if (state is TransactionDeleted) {
+            showErrorSnackBar(context, 'Transaction deleted successfully');
+          }
+        },
         builder: (context, state) {
           if (state is TransactionsLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -92,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                             count: state.incomeTransactions.length,
                             isIncome: true,
                             transactions: state.incomeTransactions,
-                            onEdit: (t) => _showEditSheet(context, t),
+                            onEdit: (t) => showEditSheet(context, t),
                             onDelete: (t) => context
                                 .read<TransactionsCubit>()
                                 .deleteTransaction(t.id),
@@ -107,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                             count: state.expenseTransactions.length,
                             isIncome: false,
                             transactions: state.expenseTransactions,
-                            onEdit: (t) => _showEditSheet(context, t),
+                            onEdit: (t) => showEditSheet(context, t),
                             onDelete: (t) => context
                                 .read<TransactionsCubit>()
                                 .deleteTransaction(t.id),
@@ -125,7 +103,7 @@ class HomeScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showAddSheet(context),
+        onPressed: () => showAddSheet(context),
         backgroundColor: const Color(0xFF155DFC),
         child: const Icon(Icons.add, color: Colors.white),
       ),
