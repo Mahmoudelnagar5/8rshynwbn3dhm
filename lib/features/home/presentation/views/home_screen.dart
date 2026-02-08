@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../data/models/transction_item.dart';
 import '../widgets/app_header.dart';
 import '../widgets/balance_card.dart';
 import '../widgets/filter_buttons.dart';
 import '../widgets/summary_cards.dart';
 import '../widgets/transaction_section.dart';
+import '../widgets/transaction_type_selector.dart';
+import 'add_transaction_sheet.dart';
+import 'edit_transaction_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,33 +23,100 @@ class _HomeScreenState extends State<HomeScreen> {
   final double _totalIncome = 10000.00;
   final double _totalExpenses = 515.00;
 
-  final List<TransactionItem> _incomeTransactions = [
-    TransactionItem(
-      title: 'salary',
-      date: '2026-02-08',
-      amount: 10000.00,
-      onEdit: () {
-        // Handle edit
-      },
-      onDelete: () {
-        // Handle delete
-      },
-    ),
-  ];
+  List<TransactionItem> _incomeTransactions = [];
+  List<TransactionItem> _expenseTransactions = [];
 
-  final List<TransactionItem> _expenseTransactions = [
-    TransactionItem(
-      title: 'food',
-      date: '2026-02-08',
-      amount: 515.00,
-      onEdit: () {
-        // Handle edit
-      },
-      onDelete: () {
-        // Handle delete
-      },
-    ),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _incomeTransactions = [
+      TransactionItem(
+        title: 'salary',
+        date: '2026-02-08',
+        amount: 10000.00,
+        onEdit: () => _showEditSheet(
+          TransactionItem(
+            title: 'salary',
+            date: '2026-02-08',
+            amount: 10000.00,
+          ),
+          true,
+        ),
+        onDelete: () {
+          // Handle delete
+        },
+      ),
+    ];
+    _expenseTransactions = [
+      TransactionItem(
+        title: 'food',
+        date: '2026-02-08',
+        amount: 515.00,
+        onEdit: () => _showEditSheet(
+          TransactionItem(title: 'food', date: '2026-02-08', amount: 515.00),
+          false,
+        ),
+        onDelete: () {
+          // Handle delete
+        },
+      ),
+    ];
+  }
+
+  void _showAddSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: const AddTransactionSheet(),
+      ),
+    ).then((result) {
+      if (result != null && result is Map<String, dynamic>) {
+        // Handle the new transaction data
+        final isIncome = result['type'] == TransactionType.income;
+        final date = result['date'] as DateTime;
+        final dateStr =
+            '${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}';
+        final item = TransactionItem(
+          title: result['name'],
+          date: dateStr,
+          amount: result['amount'],
+        );
+        setState(() {
+          if (isIncome) {
+            _incomeTransactions.add(item);
+          } else {
+            _expenseTransactions.add(item);
+          }
+        });
+      }
+    });
+  }
+
+  void _showEditSheet(TransactionItem transaction, bool isIncome) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: EditTransactionSheet(
+          transaction: transaction,
+          isIncome: isIncome,
+        ),
+      ),
+    ).then((result) {
+      if (result != null && result is Map<String, dynamic>) {
+        // Handle the updated transaction data
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -105,9 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       // Floating Action Button
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Handle add transaction
-        },
+        onPressed: _showAddSheet,
         backgroundColor: const Color(0xFF155DFC),
         child: const Icon(Icons.add, color: Colors.white),
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../data/models/transction_item.dart';
 import 'transaction_card.dart';
 
 class TransactionSection extends StatelessWidget {
@@ -58,20 +59,4 @@ class TransactionSection extends StatelessWidget {
       ],
     );
   }
-}
-
-class TransactionItem {
-  final String title;
-  final String date;
-  final double amount;
-  final VoidCallback? onEdit;
-  final VoidCallback? onDelete;
-
-  TransactionItem({
-    required this.title,
-    required this.date,
-    required this.amount,
-    this.onEdit,
-    this.onDelete,
-  });
 }

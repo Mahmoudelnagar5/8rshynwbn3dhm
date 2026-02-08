@@ -35,7 +35,7 @@ class BalanceCard extends StatelessWidget {
                   fontSize: 14,
                 ),
               ),
-              Icon(Icons.info_outline, color: Colors.white, size: 20),
+              Icon(Icons.account_balance_wallet, color: Colors.white, size: 20),
             ],
           ),
           const SizedBox(height: 32),

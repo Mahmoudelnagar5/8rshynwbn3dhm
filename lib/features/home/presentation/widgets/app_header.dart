@@ -35,7 +35,7 @@ class AppHeader extends StatelessWidget {
               const SizedBox(width: 8),
               // App Name
               const Text(
-                'PennyWise',
+                'Monex',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
