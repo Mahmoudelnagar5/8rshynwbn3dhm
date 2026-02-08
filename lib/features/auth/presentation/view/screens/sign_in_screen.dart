@@ -1,3 +1,4 @@
+import 'package:expense_tracker/features/auth/presentation/view/screens/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -71,7 +72,12 @@ class SignInScreen extends StatelessWidget {
             ),
             SizedBox(height: 12),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                );
+              },
               child: Text(
                 "Create Account",
                 style: TextStyle(
