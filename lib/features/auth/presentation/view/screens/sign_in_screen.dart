@@ -59,15 +59,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             height: height * .3,
                             width: width * 0.4,
                           ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            "قرشين وبنعدهم",
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 5, 5, 5),
-                            ),
-                          ),
                         ],
                       ),
                     ),

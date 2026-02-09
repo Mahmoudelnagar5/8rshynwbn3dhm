@@ -3,6 +3,7 @@ import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit
 import 'package:expense_tracker/features/home/data/models/transction_item.dart';
 import 'package:expense_tracker/features/home/data/repo/transactions_repo.dart';
 import 'package:expense_tracker/features/home/presentation/view_model/transactions_cubit.dart';
+import 'package:expense_tracker/features/splash/presentation/view/splash_view.dart';
 import 'package:expense_tracker/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SignInScreen(),
+        home: SplashScreen(),
       ),
     );
   }

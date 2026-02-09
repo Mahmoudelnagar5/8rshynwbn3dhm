@@ -73,15 +73,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: height * .3,
                             width: width * 0.4,
                           ),
-                          const SizedBox(height: 4),
-                          const Text(
-                            "قرشين وبنعدهم",
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                            ),
-                          ),
                         ],
                       ),
                     ),
