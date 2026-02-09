@@ -19,12 +19,41 @@ class AuthCubit extends Cubit<AuthState> {
           .collection("user")
           .doc(credential.user!.uid)
           .set({"User Name": userName, "Email": email, "Password": password});
-      emit(AuthSuccessState());
-      var box = await Hive.openBox('auth');
-      box.put('isLoggedIn', true);
-      box.put('userId', credential.user!.uid);
+
+      await credential.user!.sendEmailVerification();
+      emit(EmailVerificationSentState());
     } catch (e) {
       print(e.toString());
+      emit(FailureAuthState(e.toString()));
+    }
+  }
+
+  Future<void> sendVerificationEmail() async {
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null && !user.emailVerified) {
+        await user.sendEmailVerification();
+        emit(EmailVerificationSentState());
+      }
+    } catch (e) {
+      emit(FailureAuthState(e.toString()));
+    }
+  }
+
+  Future<void> checkEmailVerified() async {
+    try {
+      emit(LoadingAuthState());
+      await FirebaseAuth.instance.currentUser?.reload();
+      final user = FirebaseAuth.instance.currentUser;
+      if (user != null && user.emailVerified) {
+        var box = await Hive.openBox('auth');
+        box.put('isLoggedIn', true);
+        box.put('userId', user.uid);
+        emit(EmailVerifiedState());
+      } else {
+        emit(EmailNotVerifiedState());
+      }
+    } catch (e) {
       emit(FailureAuthState(e.toString()));
     }
   }
@@ -36,6 +65,12 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
+
+      if (credential.user != null && !credential.user!.emailVerified) {
+        emit(EmailNotVerifiedState());
+        return;
+      }
+
       emit(AuthSuccessState());
       var box = await Hive.openBox('auth');
       box.put('isLoggedIn', true);
@@ -49,6 +84,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> signOut() async {
     try {
       emit(LoadingAuthState());
+      // await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       var box = await Hive.openBox('auth');
       await box.put('isLoggedIn', false);

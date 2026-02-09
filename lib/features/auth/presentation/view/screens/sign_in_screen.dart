@@ -1,5 +1,6 @@
 import 'package:expense_tracker/core/functions/snackbar_utils.dart';
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_up_screen.dart';
+import 'package:expense_tracker/features/auth/presentation/view/screens/email_verification_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_state.dart';
 import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
@@ -26,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(247, 247, 247, 247),
+      backgroundColor: Color(0xFFF7F7F7),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: BlocConsumer<AuthCubit, AuthState>(
@@ -38,6 +39,15 @@ class _SignInScreenState extends State<SignInScreen> {
                 (route) => false,
               );
               showSuccessSnackBar(context, "Logged in successfully");
+            } else if (state is EmailNotVerifiedState) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const EmailVerificationScreen(),
+                ),
+              );
+              showErrorSnackBar(
+                  context, "Please verify your email before signing in.");
             } else if (state is FailureAuthState) {
               showErrorSnackBar(context, state.failMsg);
             }

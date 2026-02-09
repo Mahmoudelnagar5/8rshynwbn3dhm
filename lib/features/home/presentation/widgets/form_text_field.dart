@@ -5,6 +5,7 @@ class FormTextField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final TextInputType keyboardType;
+  final String? Function(String?)? validator;
 
   const FormTextField({
     super.key,
@@ -12,6 +13,7 @@ class FormTextField extends StatelessWidget {
     required this.hintText,
     required this.controller,
     this.keyboardType = TextInputType.text,
+    this.validator,
   });
 
   @override
@@ -25,13 +27,12 @@ class FormTextField extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Container(
-          height: 36,
           decoration: BoxDecoration(
             color: const Color(0xFFF3F3F5),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(color: Colors.transparent, width: 1.21),
           ),
-          child: TextField(
+          child: TextFormField(
             controller: controller,
             keyboardType: keyboardType,
             style: const TextStyle(color: Color(0xFF0A0A0A), fontSize: 16),
@@ -47,7 +48,12 @@ class FormTextField extends StatelessWidget {
               ),
               border: InputBorder.none,
               isDense: true,
+              errorStyle: const TextStyle(
+                color: Colors.red,
+                fontSize: 12,
+              ),
             ),
+            validator: validator,
           ),
         ),
       ],

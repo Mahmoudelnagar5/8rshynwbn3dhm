@@ -22,6 +22,7 @@ class EditTransactionSheet extends StatefulWidget {
 }
 
 class _EditTransactionSheetState extends State<EditTransactionSheet> {
+  final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
   late final TextEditingController _amountController;
   late TransactionType _selectedType;
@@ -59,10 +60,12 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
         ),
       ),
       padding: const EdgeInsets.fromLTRB(25, 25, 25, 25),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+      child: Form(
+        key: _formKey,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
             FormHeader(
               title: 'Edit Transaction',
               onClose: () => Navigator.of(context).pop(),
@@ -72,6 +75,8 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
               label: 'Transaction Name',
               hintText: 'e.g. Groceries, Salary, Transportation...',
               controller: _nameController,
+              validator: (value) =>
+                  value?.isEmpty ?? true ? 'This field is required' : null,
             ),
             const SizedBox(height: 20),
             FormTextField(
@@ -81,6 +86,14 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
               keyboardType: const TextInputType.numberWithOptions(
                 decimal: true,
               ),
+              validator: (value) {
+                if (value?.isEmpty ?? true) return 'This field is required';
+                final num = double.tryParse(value!);
+                if (num == null || num <= 0) {
+                  return 'Enter a valid amount greater than 0';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 20),
             TransactionTypeSelector(
@@ -105,10 +118,10 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
               submitLabel: 'Update',
               onCancel: () => Navigator.of(context).pop(),
               onSubmit: () {
-                final name = _nameController.text.trim();
-                final amount =
-                    double.tryParse(_amountController.text.trim()) ?? 0;
-                if (name.isNotEmpty && amount > 0 && _selectedDate != null) {
+                if (_formKey.currentState?.validate() ?? false) {
+                  final name = _nameController.text.trim();
+                  final amount =
+                      double.tryParse(_amountController.text.trim()) ?? 0;
                   final date = _selectedDate!;
                   final updatedItem = TransactionItem(
                     id: widget.transaction.id,
@@ -125,6 +138,7 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

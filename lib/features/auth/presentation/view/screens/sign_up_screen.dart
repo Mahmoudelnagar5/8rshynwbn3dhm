@@ -1,5 +1,5 @@
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
-import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
+import 'package:expense_tracker/features/auth/presentation/view/screens/email_verification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../core/functions/snackbar_utils.dart';
@@ -34,18 +34,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(247, 247, 247, 247),
+      backgroundColor: Color(0xFFF7F7F7),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
-            if (state is AuthSuccessState) {
-              Navigator.pushAndRemoveUntil(
+            if (state is EmailVerificationSentState) {
+              Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
-                (route) => false,
+                MaterialPageRoute(
+                  builder: (context) => const EmailVerificationScreen(),
+                ),
               );
-              showSuccessSnackBar(context, "Account created successfully");
+              showSuccessSnackBar(
+                  context, "Verification email sent! Please check your inbox.");
             } else if (state is FailureAuthState) {
               showErrorSnackBar(context, state.failMsg);
             }

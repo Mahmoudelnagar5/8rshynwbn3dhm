@@ -44,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                   const AppHeader(),
                   Expanded(
                     child: SingleChildScrollView(
+                      physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [

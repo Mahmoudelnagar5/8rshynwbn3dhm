@@ -12,3 +12,9 @@ class FailureAuthState extends AuthState {
 }
 
 class SignOutState extends AuthState {}
+
+class EmailVerificationSentState extends AuthState {}
+
+class EmailVerifiedState extends AuthState {}
+
+class EmailNotVerifiedState extends AuthState {}
