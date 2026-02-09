@@ -15,7 +15,6 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Variables to hold input data
   String email = '';
   String password = '';
   bool obscurePassword = true;
@@ -29,18 +28,15 @@ class _SignInScreenState extends State<SignInScreen> {
       backgroundColor: const Color.fromARGB(247, 247, 247, 247),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        // Wrap with BlocConsumer to listen for success/failure and build the UI
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccessState) {
-              // Only navigate if Firebase confirms the account is valid
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (route) => false,
               );
             } else if (state is FailureAuthState) {
-              // Show the actual error message from Firebase
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.failMsg),
@@ -78,7 +74,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: 40),
                     TextFormField(
                       keyboardType: TextInputType.emailAddress,
-                      onChanged: (value) => email = value, // Capture email
+                      onChanged: (value) => email = value,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return "Email is required";
@@ -96,8 +92,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       obscureText: obscurePassword,
-                      onChanged: (value) =>
-                          password = value, // Capture password
+                      onChanged: (value) => password = value,
                       validator: (val) {
                         if (val == null || val.isEmpty) {
                           return "This field is required";
@@ -141,10 +136,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           ),
                         ),
                         onPressed: state is LoadingAuthState
-                            ? null // Disable button while loading
+                            ? null
                             : () {
                                 if (formKey.currentState!.validate()) {
-                                  // Call the Cubit method
                                   context.read<AuthCubit>().signIn(
                                     email: email,
                                     password: password,

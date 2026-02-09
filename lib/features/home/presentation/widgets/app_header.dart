@@ -1,5 +1,7 @@
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
+import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppHeader extends StatelessWidget {
   const AppHeader({super.key});
@@ -56,12 +58,17 @@ class AppHeader extends StatelessWidget {
                 size: 20,
                 color: Color(0xFFE7000B),
               ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignInScreen()),
-                );
-                // Handle logout
+              onPressed: () async {
+                await context.read<AuthCubit>().signOut();
+                if (context.mounted) {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SignInScreen(),
+                    ),
+                    (route) => false,
+                  );
+                }
               },
               padding: EdgeInsets.zero,
             ),
