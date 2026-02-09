@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
+import 'package:expense_tracker/features/onboarding/onboarding.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => SignInScreen()),
+        MaterialPageRoute(builder: (context) => OnboardingView()),
       );
     });
   }
