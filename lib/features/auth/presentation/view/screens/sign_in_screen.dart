@@ -1,4 +1,5 @@
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_up_screen.dart';
+import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -105,7 +106,12 @@ class _SignInScreenState extends State<SignInScreen> {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        print("Success!");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const HomeScreen(),
+                          ),
+                        );
                       }
                     },
                     child: const Text(

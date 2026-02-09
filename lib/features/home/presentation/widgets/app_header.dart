@@ -1,3 +1,4 @@
+import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppHeader extends StatelessWidget {
@@ -56,6 +57,10 @@ class AppHeader extends StatelessWidget {
                 color: Color(0xFFE7000B),
               ),
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                );
                 // Handle logout
               },
               padding: EdgeInsets.zero,
