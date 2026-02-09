@@ -27,7 +27,23 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: const Color.fromARGB(247, 247, 247, 247),
 
-      body: Center(child: Image.asset('assets/images/logo2.jpeg', width: 300)),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/logo.png', height: 150, width: 300),
+            const SizedBox(height: 20),
+            Text(
+              "Monex",
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 40,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
