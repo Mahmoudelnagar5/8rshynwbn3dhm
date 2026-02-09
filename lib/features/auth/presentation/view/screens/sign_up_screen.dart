@@ -61,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           },
           builder: (context, state) {
             return Form(
-              key: _formKey, // Wrapped in Form for validation
+              key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -201,8 +201,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     const SizedBox(height: 12),
                     TextButton(
-                      onPressed: () =>
-                          Navigator.pop(context), // Simple pop to go back
+                      onPressed: () => Navigator.pop(context),
                       child: const Text(
                         "Already have an account? Sign in",
                         style: TextStyle(
