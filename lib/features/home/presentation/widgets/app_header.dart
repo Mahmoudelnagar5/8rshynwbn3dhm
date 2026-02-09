@@ -1,5 +1,6 @@
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_in_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
+import 'package:expense_tracker/features/auth/presentation/view_model/auth_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,15 +9,27 @@ class AppHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(
-          bottom: BorderSide(color: Colors.black.withOpacity(0.1), width: 1.21),
+    return BlocListener<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is SignOutState) {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SignInScreen(),
+            ),
+            (route) => false,
+          );
+        }
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            bottom: BorderSide(color: Colors.black.withOpacity(0.1), width: 1.21),
+          ),
         ),
-      ),
-      child: Row(
+        child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
@@ -58,22 +71,14 @@ class AppHeader extends StatelessWidget {
                 size: 20,
                 color: Color(0xFFE7000B),
               ),
-              onPressed: () async {
-                await context.read<AuthCubit>().signOut();
-                if (context.mounted) {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignInScreen(),
-                    ),
-                    (route) => false,
-                  );
-                }
+              onPressed: () {
+                context.read<AuthCubit>().signOut();
               },
               padding: EdgeInsets.zero,
             ),
           ),
         ],
+      ),
       ),
     );
   }

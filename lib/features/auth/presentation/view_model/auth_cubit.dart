@@ -54,7 +54,7 @@ class AuthCubit extends Cubit<AuthState> {
       await box.put('isLoggedIn', false);
       await box.clear();
 
-      emit(InitAuthState());
+      emit(SignOutState());
     } catch (e) {
       emit(FailureAuthState(e.toString()));
     }

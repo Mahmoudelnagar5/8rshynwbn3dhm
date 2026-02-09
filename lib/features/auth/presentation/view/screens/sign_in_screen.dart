@@ -1,3 +1,4 @@
+import 'package:expense_tracker/core/functions/snackbar_utils.dart';
 import 'package:expense_tracker/features/auth/presentation/view/screens/sign_up_screen.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit.dart';
 import 'package:expense_tracker/features/auth/presentation/view_model/auth_state.dart';
@@ -36,13 +37,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (route) => false,
               );
+              showSuccessSnackBar(context, "Logged in successfully");
             } else if (state is FailureAuthState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.failMsg),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              showErrorSnackBar(context, state.failMsg);
             }
           },
           builder: (context, state) {

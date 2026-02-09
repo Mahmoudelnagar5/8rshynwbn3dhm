@@ -33,7 +33,7 @@ class TransactionCard extends StatelessWidget {
     final icon = isIncome ? Icons.trending_up : Icons.trending_down;
 
     return Slidable(
-      endActionPane: ActionPane(
+      startActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
           if (onEdit != null)
@@ -44,6 +44,11 @@ class TransactionCard extends StatelessWidget {
               icon: Icons.edit,
               label: 'Edit',
             ),
+        ],
+      ),
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
           if (onDelete != null)
             SlidableAction(
               onPressed: (_) => onDelete!(),
