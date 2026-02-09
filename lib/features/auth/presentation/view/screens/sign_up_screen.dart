@@ -2,6 +2,7 @@ import 'package:expense_tracker/features/auth/presentation/view_model/auth_cubit
 import 'package:expense_tracker/features/home/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../../core/functions/snackbar_utils.dart';
 import '../../view_model/auth_state.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -39,24 +40,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccessState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  backgroundColor: Colors.green,
-                  content: Center(child: Text("Account created successfully")),
-                ),
-              );
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (route) => false,
               );
+              showSuccessSnackBar(context, "Account created successfully");
             } else if (state is FailureAuthState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Colors.red,
-                  content: Text(state.failMsg),
-                ),
-              );
+              showErrorSnackBar(context, state.failMsg);
             }
           },
           builder: (context, state) {

@@ -26,9 +26,12 @@ class FormDateField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
     final displayText = selectedDate != null
         ? '${selectedDate!.year}-${selectedDate!.month.toString().padLeft(2, '0')}-${selectedDate!.day.toString().padLeft(2, '0')}'
         : '';
+    final hintText =
+        '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,12 +52,26 @@ class FormDateField extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.transparent, width: 1.21),
             ),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                displayText,
-                style: const TextStyle(color: Color(0xFF0A0A0A), fontSize: 16),
-              ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.calendar_today,
+                  size: 18,
+                  color: Color(0xFF0A0A0A),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    displayText.isEmpty ? hintText : displayText,
+                    style: TextStyle(
+                      color: displayText.isEmpty
+                          ? const Color(0xFF0A0A0A).withOpacity(0.5)
+                          : const Color(0xFF0A0A0A),
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),

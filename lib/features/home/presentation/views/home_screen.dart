@@ -38,64 +38,66 @@ class HomeScreen extends StatelessWidget {
           }
 
           if (state is TransactionsLoaded) {
-            return Column(
-              children: [
-                const AppHeader(),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      children: [
-                        BalanceCard(balance: state.currentBalance),
-                        const SizedBox(height: 12),
-                        SummaryCards(
-                          income: state.totalIncome,
-                          expenses: state.totalExpenses,
-                        ),
-                        const SizedBox(height: 24),
-                        FilterButtons(
-                          selectedFilter: state.selectedFilter,
-                          onFilterChanged: (filter) {
-                            context.read<TransactionsCubit>().changeFilter(
-                              filter,
-                            );
-                          },
-                        ),
-                        const SizedBox(height: 24),
-                        if (state.selectedFilter == TransactionFilter.all ||
-                            state.selectedFilter ==
-                                TransactionFilter.income) ...[
-                          TransactionSection(
-                            title: 'Income',
-                            count: state.incomeTransactions.length,
-                            isIncome: true,
-                            transactions: state.incomeTransactions,
-                            onEdit: (t) => showEditSheet(context, t),
-                            onDelete: (t) => context
-                                .read<TransactionsCubit>()
-                                .deleteTransaction(t.id),
+            return SafeArea(
+              child: Column(
+                children: [
+                  const AppHeader(),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          BalanceCard(balance: state.currentBalance),
+                          const SizedBox(height: 12),
+                          SummaryCards(
+                            income: state.totalIncome,
+                            expenses: state.totalExpenses,
                           ),
                           const SizedBox(height: 24),
-                        ],
-                        if (state.selectedFilter == TransactionFilter.all ||
-                            state.selectedFilter ==
-                                TransactionFilter.expenses) ...[
-                          TransactionSection(
-                            title: 'Expenses',
-                            count: state.expenseTransactions.length,
-                            isIncome: false,
-                            transactions: state.expenseTransactions,
-                            onEdit: (t) => showEditSheet(context, t),
-                            onDelete: (t) => context
-                                .read<TransactionsCubit>()
-                                .deleteTransaction(t.id),
+                          FilterButtons(
+                            selectedFilter: state.selectedFilter,
+                            onFilterChanged: (filter) {
+                              context.read<TransactionsCubit>().changeFilter(
+                                filter,
+                              );
+                            },
                           ),
+                          const SizedBox(height: 24),
+                          if (state.selectedFilter == TransactionFilter.all ||
+                              state.selectedFilter ==
+                                  TransactionFilter.income) ...[
+                            TransactionSection(
+                              title: 'Income',
+                              count: state.incomeTransactions.length,
+                              isIncome: true,
+                              transactions: state.incomeTransactions,
+                              onEdit: (t) => showEditSheet(context, t),
+                              onDelete: (t) => context
+                                  .read<TransactionsCubit>()
+                                  .deleteTransaction(t.id),
+                            ),
+                            const SizedBox(height: 24),
+                          ],
+                          if (state.selectedFilter == TransactionFilter.all ||
+                              state.selectedFilter ==
+                                  TransactionFilter.expenses) ...[
+                            TransactionSection(
+                              title: 'Expenses',
+                              count: state.expenseTransactions.length,
+                              isIncome: false,
+                              transactions: state.expenseTransactions,
+                              onEdit: (t) => showEditSheet(context, t),
+                              onDelete: (t) => context
+                                  .read<TransactionsCubit>()
+                                  .deleteTransaction(t.id),
+                            ),
+                          ],
                         ],
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           }
 

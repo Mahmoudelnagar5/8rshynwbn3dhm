@@ -59,67 +59,71 @@ class _EditTransactionSheetState extends State<EditTransactionSheet> {
         ),
       ),
       padding: const EdgeInsets.fromLTRB(25, 25, 25, 25),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FormHeader(
-            title: 'Edit Transaction',
-            onClose: () => Navigator.of(context).pop(),
-          ),
-          const SizedBox(height: 48),
-          FormTextField(
-            label: 'Transaction Name',
-            hintText: 'e.g. Groceries, Salary, Transportation...',
-            controller: _nameController,
-          ),
-          const SizedBox(height: 20),
-          FormTextField(
-            label: 'Amount (\$)',
-            hintText: '0.00',
-            controller: _amountController,
-            keyboardType: const TextInputType.numberWithOptions(decimal: true),
-          ),
-          const SizedBox(height: 20),
-          TransactionTypeSelector(
-            selectedType: _selectedType,
-            onTypeChanged: (type) {
-              setState(() {
-                _selectedType = type;
-              });
-            },
-          ),
-          const SizedBox(height: 20),
-          FormDateField(
-            selectedDate: _selectedDate,
-            onDateSelected: (date) {
-              setState(() {
-                _selectedDate = date;
-              });
-            },
-          ),
-          const SizedBox(height: 20),
-          FormActionButtons(
-            submitLabel: 'Update',
-            onCancel: () => Navigator.of(context).pop(),
-            onSubmit: () {
-              final name = _nameController.text.trim();
-              final amount =
-                  double.tryParse(_amountController.text.trim()) ?? 0;
-              if (name.isNotEmpty && amount > 0 && _selectedDate != null) {
-                final date = _selectedDate!;
-                final updatedItem = TransactionItem(
-                  id: widget.transaction.id,
-                  title: name,
-                  date: date,
-                  amount: amount,
-                  isIncome: _selectedType == TransactionType.income,
-                );
-                widget.cubit.updateTransaction(updatedItem);
-                Navigator.of(context).pop();
-              }
-            },
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FormHeader(
+              title: 'Edit Transaction',
+              onClose: () => Navigator.of(context).pop(),
+            ),
+            const SizedBox(height: 48),
+            FormTextField(
+              label: 'Transaction Name',
+              hintText: 'e.g. Groceries, Salary, Transportation...',
+              controller: _nameController,
+            ),
+            const SizedBox(height: 20),
+            FormTextField(
+              label: 'Amount (\$)',
+              hintText: '0.00',
+              controller: _amountController,
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
+            ),
+            const SizedBox(height: 20),
+            TransactionTypeSelector(
+              selectedType: _selectedType,
+              onTypeChanged: (type) {
+                setState(() {
+                  _selectedType = type;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            FormDateField(
+              selectedDate: _selectedDate,
+              onDateSelected: (date) {
+                setState(() {
+                  _selectedDate = date;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            FormActionButtons(
+              submitLabel: 'Update',
+              onCancel: () => Navigator.of(context).pop(),
+              onSubmit: () {
+                final name = _nameController.text.trim();
+                final amount =
+                    double.tryParse(_amountController.text.trim()) ?? 0;
+                if (name.isNotEmpty && amount > 0 && _selectedDate != null) {
+                  final date = _selectedDate!;
+                  final updatedItem = TransactionItem(
+                    id: widget.transaction.id,
+                    title: name,
+                    date: date,
+                    amount: amount,
+                    isIncome: _selectedType == TransactionType.income,
+                  );
+                  widget.cubit.updateTransaction(updatedItem);
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

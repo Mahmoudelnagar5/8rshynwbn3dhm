@@ -9,9 +9,9 @@ void showAddSheet(BuildContext context) {
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
-    builder: (_) => Padding(
+    builder: (builderContext) => Padding(
       padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
+        bottom: MediaQuery.of(builderContext).viewInsets.bottom,
       ),
       child: AddTransactionSheet(cubit: context.read<TransactionsCubit>()),
     ),
