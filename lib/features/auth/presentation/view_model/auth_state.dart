@@ -10,3 +10,5 @@ class FailureAuthState extends AuthState {
   String failMsg;
   FailureAuthState(this.failMsg);
 }
+
+class SignOutState extends AuthState {}

@@ -45,4 +45,18 @@ class AuthCubit extends Cubit<AuthState> {
       emit(FailureAuthState(e.toString()));
     }
   }
+
+  Future<void> signOut() async {
+    try {
+      emit(LoadingAuthState());
+      await FirebaseAuth.instance.signOut();
+      var box = await Hive.openBox('auth');
+      await box.put('isLoggedIn', false);
+      await box.clear();
+
+      emit(InitAuthState());
+    } catch (e) {
+      emit(FailureAuthState(e.toString()));
+    }
+  }
 }

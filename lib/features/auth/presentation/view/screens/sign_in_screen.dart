@@ -13,130 +13,162 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   String email = '';
   String password = '';
+  bool obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(247, 247, 247, 247),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: BlocConsumer<AuthCubit, AuthState>(
-          listener: (BuildContext context, state) {
+          listener: (context, state) {
             if (state is AuthSuccessState) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: Colors.green,
-                  content: Center(child: Text("Logged in successfully")),
-                ),
-              );
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
+                MaterialPageRoute(builder: (context) => const HomeScreen()),
                 (route) => false,
               );
             } else if (state is FailureAuthState) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  backgroundColor: Colors.red,
                   content: Text(state.failMsg),
+                  backgroundColor: Colors.red,
                 ),
               );
             }
           },
           builder: (context, state) {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Column(
-                      children: [
-                        Image.asset(
-                          "assets/images/logo.jpeg",
-                          height: 150,
-                          width: 200,
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                          "قرشين وبنعدهم",
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: const Color.fromARGB(255, 5, 5, 5),
+            return Form(
+              key: formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Column(
+                        children: [
+                          Image.asset(
+                            "assets/images/logo2.jpeg",
+                            height: height * .3,
+                            width: width * 0.4,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 40),
-                  TextField(
-                    onChanged: (value) => email = value,
-                    decoration: InputDecoration(
-                      hintText: "Email",
-                      prefixIcon: Icon(Icons.email),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  TextField(
-                    onChanged: (value) => password = value,
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      prefixIcon: Icon(Icons.lock),
-                      suffixIcon: Icon(Icons.visibility_off),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 24),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 34, 9, 255),
-                        shape: RoundedRectangleBorder(
+                    const SizedBox(height: 40),
+                    TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      onChanged: (value) => email = value,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return "Email is required";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Email",
+                        prefixIcon: const Icon(Icons.email),
+                        border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
                       ),
-                      onPressed: () {
-                        context.read<AuthCubit>().signIn(
-                          email: email,
-                          password: password,
-                        );
-                      },
-                      child: state is LoadingAuthState
-                          ? CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                              "Log in",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ),
-                            ),
                     ),
-                  ),
-                  SizedBox(height: 12),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUpScreen()),
-                      );
-                    },
-                    child: Text(
-                      "Don't have an account?  Sign Up",
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 45, 0, 248),
-                        fontSize: 18,
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      obscureText: obscurePassword,
+                      onChanged: (value) => password = value,
+                      validator: (val) {
+                        if (val == null || val.isEmpty) {
+                          return "This field is required";
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Password",
+                        prefixIcon: const Icon(Icons.lock),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              obscurePassword = !obscurePassword;
+                            });
+                          },
+                          icon: Icon(
+                            obscurePassword
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 24),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color.fromARGB(
+                            255,
+                            34,
+                            9,
+                            255,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        onPressed: state is LoadingAuthState
+                            ? null
+                            : () {
+                                if (formKey.currentState!.validate()) {
+                                  context.read<AuthCubit>().signIn(
+                                    email: email,
+                                    password: password,
+                                  );
+                                }
+                              },
+                        child: state is LoadingAuthState
+                            ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                            : const Text(
+                                "Log in",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                              ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpScreen(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Don't have an account? Sign Up",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 45, 0, 248),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           },
