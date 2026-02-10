@@ -47,7 +47,6 @@ class _OnboardingViewState extends State<OnboardingView> {
               ),
             ],
           ),
-
           Container(
             alignment: const Alignment(0, 0.85),
             child: Column(
@@ -79,7 +78,6 @@ class _OnboardingViewState extends State<OnboardingView> {
                       ),
                       onPressed: () async {
                         if (isLastPage) {
-                          // Mark onboarding as completed
                           var box = await Hive.openBox('auth');
                           await box.put('hasCompletedOnboarding', true);
                           Navigator.pushReplacement(
