@@ -146,25 +146,16 @@ lib/
 ## 📸 Screenshots
 
 ### Splash & Onboarding
-<p align="center">
-  <img src="assets/screenshots/splash.png" width="200" alt="Splash Screen"/>
-  <img src="assets/screenshots/onboarding1.png" width="200" alt="Onboarding 1"/>
-  <img src="assets/screenshots/onboarding2.png" width="200" alt="Onboarding 2"/>
-</p>
+<img width="1920" height="1440" alt="Image" src="https://github.com/user-attachments/assets/25f56cc2-581f-4d52-94b2-2dc3e25721ef" />
+
 
 ### Authentication
-<p align="center">
-  <img src="assets/screenshots/signin.png" width="200" alt="Sign In"/>
-  <img src="assets/screenshots/signup.png" width="200" alt="Sign Up"/>
-  <img src="assets/screenshots/email_verify.png" width="200" alt="Email Verification"/>
-</p>
+<img width="1920" height="1440" alt="Image" src="https://github.com/user-attachments/assets/bdbc72a8-fc65-497f-98fd-063ba9cb71d0" />
+
 
 ### Home & Transactions
-<p align="center">
-  <img src="assets/screenshots/home.png" width="200" alt="Home Screen"/>
-  <img src="assets/screenshots/add_transaction.png" width="200" alt="Add Transaction"/>
-  <img src="assets/screenshots/edit_transaction.png" width="200" alt="Edit Transaction"/>
-</p>
+<img width="1920" height="1440" alt="Image" src="https://github.com/user-attachments/assets/446c4efa-bce0-4cf1-a40b-d75224f21d9a" />
+
 
 ---
 
