@@ -47,7 +47,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               );
               showSuccessSnackBar(
-                  context, "Verification email sent! Please check your inbox.");
+                context,
+                "Verification email sent! Please check your inbox.",
+              );
             } else if (state is FailureAuthState) {
               showErrorSnackBar(context, state.failMsg);
             }

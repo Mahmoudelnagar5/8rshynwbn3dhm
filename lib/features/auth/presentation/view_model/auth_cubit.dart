@@ -50,8 +50,6 @@ class AuthCubit extends Cubit<AuthState> {
         box.put('isLoggedIn', true);
         box.put('userId', user.uid);
         emit(EmailVerifiedState());
-      } else {
-        emit(EmailNotVerifiedState());
       }
     } catch (e) {
       emit(FailureAuthState(e.toString()));
